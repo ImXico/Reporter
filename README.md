@@ -22,9 +22,7 @@ Every method that is listening to events should be marked with the ```@Subscript
 Those methods should only have **one** parameter, and that parameter should be an implementation of an ```Event```.
 ```kotlin
 class HungryPerson : Subscriber {
-
-    // ...
-    
+ 
     @Subscription
     fun onFoodReady(event: FoodReadyEvent) {
         println("Hungry Person says: I'm going to eat some ${event.foodName}!")
@@ -33,29 +31,35 @@ class HungryPerson : Subscriber {
 
 class SpyingNeighbour : Subscriber {
 
-    // ...
-    
     @Subscription
     fun onOtherNeighbourFoodReady(event: FoodReadyEvent) {
-        println("Spying Neighbour says: Looks like he's about to eat ${event.foodName}.")
+        println("Spying Neighbour says: Looks like he's about to eat ${event.foodName}...")
     }
 }
-
 ```
+
+### Reporter
+```Reporter``` provides the following public methods:
+````kotlin
+Reporter.initialize()
+Reporter.register(subscriber: Subscriber)
+Reporter.unregister(subscriber: Subscriber)
+Reporter.report(event: Event)
+Report.clearAll()
+```
+
 
 ## Test Run
 The code for this whole example is [here](https://github.com/ImXico/Reporter/tree/master/src/example).
 ```kotlin
 fun main(args: Array<String>) {
-
-    Reporter.initialize()
     
     val hungryPerson: HungryPerson = HungryPerson()
     val spyingNeighbour: SpyingNeighbour = SpyingNeighbour()
     
+    Reporter.initialize()
     Reporter.register(hungryPerson)
     Reporter.register(spyingNeighbour)
-    
     Reporter.report(FoodReadyEvent(foodName = "Broccoli"))
     
 }
@@ -66,27 +70,3 @@ fun main(args: Array<String>) {
 Hungry Person says: I'm going to eat some Broccoli!
 Spying Neighbour says: Looks like he's about to eat Broccoli.
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
