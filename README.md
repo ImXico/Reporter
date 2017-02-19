@@ -1,5 +1,5 @@
 # Reporter
-Tiny [publisher/subscriber](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) annotation-based event handling system for Java/Kotlin.
+Tiny annotation-based event handling for Java/Kotlin.
 
 --
 
@@ -29,6 +29,8 @@ class HungryPerson : Subscriber {
     }
 }
 
+----
+
 class SpyingNeighbour : Subscriber {
 
     @Subscription
@@ -57,9 +59,9 @@ fun main(args: Array<String>) {
     val hungryPerson: HungryPerson = HungryPerson()
     val spyingNeighbour: SpyingNeighbour = SpyingNeighbour()
     
-    Reporter.initialize()
     Reporter.register(hungryPerson)
     Reporter.register(spyingNeighbour)
+    
     Reporter.report(FoodReadyEvent(foodName = "Broccoli"))
     
 }
