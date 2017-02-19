@@ -17,11 +17,7 @@ object Reporter {
      * Maps an [Event] to one or more [SubscriberEventHandler]s.
      * Thus, when an [Event] is triggered, all handlers will fire their handling methods.
      */
-    private val map: MutableMap<Class<out Event>, MutableSet<SubscriberEventHandler>> by lazy { initialize() }
-
-    fun initialize(): MutableMap<Class<out Event>, MutableSet<SubscriberEventHandler>> {
-        return mutableMapOf()
-    }
+    private val map: MutableMap<Class<out Event>, MutableSet<SubscriberEventHandler>> = mutableMapOf()
 
     /**
      * Registers a new [Subscriber].
