@@ -1,5 +1,5 @@
 # Reporter
-Tiny annotation-based event handling for Java/Kotlin.
+Tiny annotation-based event handling system for Java/Kotlin.
 
 --
 
@@ -43,7 +43,6 @@ class SpyingNeighbour : Subscriber {
 ### Reporter
 ```Reporter``` provides the following public methods:
 ````kotlin
-Reporter.initialize()
 Reporter.register(subscriber: Subscriber)
 Reporter.unregister(subscriber: Subscriber)
 Reporter.report(event: Event)
