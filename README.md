@@ -28,9 +28,8 @@ class HungryPerson : Subscriber {
         println("Hungry Person says: I'm going to eat some ${event.foodName}!")
     }
 }
-
-----
-
+```
+```ruby
 class SpyingNeighbour : Subscriber {
 
     @Subscription
