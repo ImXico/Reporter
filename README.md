@@ -1,5 +1,6 @@
-# Reporter
-Tiny annotation-based event handling system for Java/Kotlin.
+<img src="https://raw.githubusercontent.com/ImXico/Reporter/master/reporter-logo.png" width="373" height="98">
+
+Tiny and lightweight event handling system for Java/Kotlin. It's an annotation-based implementation of the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern) that takes away all the boilerplate that usually comes with it, making it much quicker and easy to use.
 
 --
 
