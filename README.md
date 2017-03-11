@@ -30,7 +30,7 @@ class HungryPerson : Subscriber {
     }
 }
 ```
-```ruby
+```kotlin
 class SpyingNeighbour : Subscriber {
 
     @Subscription
