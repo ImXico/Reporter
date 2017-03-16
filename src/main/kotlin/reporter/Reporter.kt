@@ -48,6 +48,30 @@ object Reporter {
     }
 
     /**
+     * Register a variable number of [Subscriber]s.
+     *
+     * @param subscribers subscribers being registered.
+     */
+    fun register(@NotNull vararg subscribers: Subscriber) {
+        subscribers.forEach { register(it) }
+    }
+
+    /**
+     * Checks whether or not the given [Subscriber] is already registered in the Reporter.
+     *
+     * @param subscriber subscriber to be checked.
+     * @return true if the subscriber is already registered, false otherwise.
+     */
+    fun subscriberAlreadyRegistered(subscriber: Subscriber): Boolean {
+        map.values.forEach {
+            it.forEach {
+                if (it.subscriber == subscriber) return true
+            }
+        }
+        return false
+    }
+
+    /**
      * @return whether or not a given method has the [Subscription] annotation.
      */
     private fun Method.hasSubscriptionAnnotation(): Boolean {
