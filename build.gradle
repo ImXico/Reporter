@@ -12,8 +12,11 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'kotlin'
+allprojects {
+    apply plugin: 'maven'
+    apply plugin: 'java'
+    apply plugin: 'kotlin'
+}
 
 sourceCompatibility = 1.5
 
