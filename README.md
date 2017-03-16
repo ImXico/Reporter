@@ -1,4 +1,7 @@
 # Reporter
+
+[![Build Status](https://travis-ci.org/ImXico/Reporter.svg?branch=master)](https://travis-ci.org/ImXico/Reporter)
+
 Tiny and lightweight event handling system for Java/Kotlin. It's an annotation-based implementation of the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern) that takes away all the boilerplate that usually comes with it, making it much quicker and easy to use.
 
 ### Events
