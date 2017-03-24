@@ -28,6 +28,7 @@ object Reporter {
      * @param subscriber subscriber being registered.
      */
     fun register(@NotNull subscriber: Subscriber) {
+        if (subscriberAlreadyRegistered(subscriber)) return
         subscriber.javaClass.declaredMethods.forEach {
             if (!it.hasSubscriptionAnnotation()) return@forEach
             if (!it.hasValidParameters()) return@forEach
@@ -63,11 +64,7 @@ object Reporter {
      * @return true if the subscriber is already registered, false otherwise.
      */
     fun subscriberAlreadyRegistered(subscriber: Subscriber): Boolean {
-        map.values.forEach {
-            it.forEach {
-                if (it.subscriber == subscriber) return true
-            }
-        }
+        map.values.forEach { it.forEach { if (it.subscriber == subscriber) return true } }
         return false
     }
 
