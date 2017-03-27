@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/ImXico/Reporter.svg?branch=master)](https://travis-ci.org/ImXico/Reporter)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/ImXico/Reporter/blob/master/LICENSE.md)
 
-Tiny and lightweight event handling system for Java/Kotlin. It's an annotation-based implementation of the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern) that takes away all the boilerplate that usually comes with it, making it much quicker and easy to use.
+Tiny and lightweight event handling system for Java/Kotlin. It's an annotation-based implementation of the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern) that takes away all the boilerplate that usually comes with it, making it easy and intuitive to use.
 
 ### Events
 Have all events implementing the `Event` interface.
@@ -42,27 +42,27 @@ class SpyingNeighbour : Subscriber {
 ```
 
 ### Reporter
-`Reporter` provides the following public methods:
+`Reporter` provides the following API:
 ```kotlin
 Reporter.register(subscriber: Subscriber)
+Reporter.register(vararg subscribers: Subscriber) 
 Reporter.unregister(subscriber: Subscriber)
 Reporter.report(event: Event)
 Report.clearAll()
 ```
 
-## Test Run
+## Sample Usage
 The code for this whole example is [here](https://github.com/ImXico/Reporter/tree/master/src/example).
 ```kotlin
 fun main(args: Array<String>) {
-    
+    /* Create two objects that will listen to one or more events. */
     val hungryPerson: HungryPerson = HungryPerson()
     val spyingNeighbour: SpyingNeighbour = SpyingNeighbour()
-    
+    /* Register the objects in the reporter service. */
     Reporter.register(hungryPerson)
     Reporter.register(spyingNeighbour)
-    
+    /* Report something to the interested subscribers. */
     Reporter.report(FoodReadyEvent(foodName = "Broccoli"))
-    
 }
 ```
 
