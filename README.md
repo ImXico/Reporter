@@ -55,13 +55,15 @@ Report.clearAll()
 The code for this whole example is [here](https://github.com/ImXico/Reporter/tree/master/src/example).
 ```kotlin
 fun main(args: Array<String>) {
-    /* Create two objects that will listen to one or more events. */
+    // Create two objects that will listen to one or more events.
     val hungryPerson: HungryPerson = HungryPerson()
     val spyingNeighbour: SpyingNeighbour = SpyingNeighbour()
-    /* Register the objects in the reporter service. */
+    
+    // Register the objects in the reporter service.
     Reporter.register(hungryPerson)
     Reporter.register(spyingNeighbour)
-    /* Report something to the interested subscribers. */
+    
+    // Report something to the interested subscribers.
     Reporter.report(FoodReadyEvent(foodName = "Broccoli"))
 }
 ```
