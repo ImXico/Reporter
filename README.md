@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/ImXico/reporter.svg?branch=master)](https://travis-ci.org/ImXico/reporter)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/ImXico/reporter/blob/master/LICENSE.md)
 
+> 🎤 Easy and painless event handling for Java/Kotlin.
+
 Tiny and lightweight event handling system for Java/Kotlin. It's an annotation-based implementation of the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern) that takes away all the boilerplate that usually comes with it, making it easy and intuitive to use.
 
 ### Events
