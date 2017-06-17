@@ -1,23 +1,24 @@
 # Reporter
 
 [![Build Status](https://travis-ci.org/ImXico/reporter.svg?branch=master)](https://travis-ci.org/ImXico/reporter)
+[![kotlin](https://img.shields.io/badge/kotlin-1.1.0-orange.svg)](https://kotlinlang.org/)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/ImXico/reporter/blob/master/LICENSE.md)
 
 > 🎤 Easy and painless event handling for Java/Kotlin.
 
-Tiny and lightweight event handling system for Java/Kotlin. It's an annotation-based implementation of the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern) that takes away all the boilerplate that usually comes with it, making it easy and intuitive to use.
+Tiny and lightweight event handling system for Java/Kotlin. It's an annotation-based implementation of the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern) that takes away all the boilerplate that usually comes with it, making it super easy to use.
 
 ### Events
 Have all events implementing the `Event` interface.
 ```kotlin
-class FoodReadyEvent(val foodName : String) : Event { ... }
+class PersonOnlineEvent(val name : String) : Event
 ```
 
 ### Subscribers
 Every class that wants to subscribe to one or more ```Event``` must implement the ```Subscriber``` interface.
 ```kotlin
-class HungryPerson : Subscriber { ... }
-class SpyingNeighbour : Subscriber { ... }
+class Bob : Subscriber
+class Joe : Subscriber
 ```
 
 ### Subscriptions
@@ -25,53 +26,32 @@ Every method that is listening to events should be marked with the `@Subscriptio
 
 Those methods should only have **one** parameter, and that parameter should be an implementation of an `Event`.
 ```kotlin
-class HungryPerson : Subscriber {
- 
+class Bob : Subscriber {
+
     @Subscription
-    fun onFoodReady(event: FoodReadyEvent) {
-        println("Hungry Person says: I'm going to eat some ${event.foodName}!")
-    }
+    fun greet(event: PersonOnlineEvent) = println("Bob says: Hi, ${event.name}!")
 }
 ```
 ```kotlin
-class SpyingNeighbour : Subscriber {
+class Joe : Subscriber {
 
     @Subscription
-    fun onOtherNeighbourFoodReady(event: FoodReadyEvent) {
-        println("Spying Neighbour says: Looks like he's about to eat ${event.foodName}...")
-    }
+    fun greet(event: PersonOnlineEvent) = println("Joe says: Hey ${event.name}.")
 }
-```
-
-### Reporter
-`Reporter` provides the following API:
-```kotlin
-Reporter.register(subscriber: Subscriber)
-Reporter.register(vararg subscribers: Subscriber) 
-Reporter.unregister(subscriber: Subscriber)
-Reporter.report(event: Event)
-Report.clearAll()
 ```
 
 ## Sample Usage
-The code for this whole example is [here](https://github.com/ImXico/Reporter/tree/master/src/example).
 ```kotlin
-fun main(args: Array<String>) {
-    // Create two objects that will listen to one or more events.
-    val hungryPerson: HungryPerson = HungryPerson()
-    val spyingNeighbour: SpyingNeighbour = SpyingNeighbour()
-    
-    // Register the objects in the reporter service.
-    Reporter.register(hungryPerson)
-    Reporter.register(spyingNeighbour)
-    
-    // Report something to the interested subscribers.
-    Reporter.report(FoodReadyEvent(foodName = "Broccoli"))
-}
+val bob: Bob = Bob()
+val joe: Joe = Joe()
+
+Reporter.registerAll(bob, joe)
+
+Reporter.report(PersonOnlineEvent(name = "Jon"))
 ```
 
 #### Output
 ```
-Hungry Person says: I'm going to eat some Broccoli!
-Spying Neighbour says: Looks like he's about to eat Broccoli.
+Bob says: Hi, Jon!
+Joe says: Hey Jon.
 ```
