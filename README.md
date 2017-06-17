@@ -11,7 +11,7 @@ Tiny and lightweight event handling system for Java/Kotlin. It's an annotation-b
 ### Events
 Have all events implementing the `Event` interface.
 ```kotlin
-class PersonOnlineEvent(val name : String) : Event
+class PersonOnlineEvent(val name: String) : Event
 ```
 
 ### Subscribers
