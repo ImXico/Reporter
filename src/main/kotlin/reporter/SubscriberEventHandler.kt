@@ -1,6 +1,5 @@
 package reporter
 
-import org.jetbrains.annotations.NotNull
 import java.lang.reflect.Method
 
 /**
@@ -12,10 +11,9 @@ import java.lang.reflect.Method
  *
  * @author Xico
  */
-class SubscriberEventHandler(@NotNull val subscriber: Subscriber, @NotNull private val handlerMethod: Method) {
 
-    fun handleEvent(@NotNull event: Event) {
-        this.handlerMethod.invoke(subscriber, event)
-    }
+internal class SubscriberEventHandler(val subscriber: Subscriber, private val handlerMethod: Method) {
+
+    internal fun handleEvent(event: Event) = this.handlerMethod.invoke(subscriber, event)
 }
 

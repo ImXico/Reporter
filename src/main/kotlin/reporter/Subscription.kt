@@ -7,6 +7,7 @@ package reporter
  *
  * @author Xico
  */
+
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class Subscription

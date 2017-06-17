@@ -1,9 +1,8 @@
-/** Pretty sure it's safe...! */
+/** Controlled cast */
 @file:Suppress("UNCHECKED_CAST")
 
 package reporter
 
-import org.jetbrains.annotations.NotNull
 import java.lang.reflect.Method
 
 /** @author Xico */
@@ -27,7 +26,7 @@ object Reporter {
      *
      * @param subscriber subscriber being registered.
      */
-    fun register(@NotNull subscriber: Subscriber) {
+    fun register(subscriber: Subscriber) {
         if (subscriberAlreadyRegistered(subscriber)) return
         subscriber.javaClass.declaredMethods.forEach {
             if (!it.hasSubscriptionAnnotation()) return@forEach
@@ -53,8 +52,39 @@ object Reporter {
      *
      * @param subscribers subscribers being registered.
      */
-    fun register(@NotNull vararg subscribers: Subscriber) {
-        subscribers.forEach { register(it) }
+    fun registerAll(vararg subscribers: Subscriber) = subscribers.forEach { register(it) }
+
+    /**
+     * Unregisters a given [Subscriber] by removing from the [map] all [SubscriberEventHandler]s
+     * that are related to this subscriber's events.
+     *
+     * @param subscriber subscriber being unregistered.
+     */
+    fun unregister(subscriber: Subscriber) {
+        for ((event, handlerSet) in map) {
+            handlerSet.removeAll { it.subscriber == subscriber }
+            if (handlerSet.isEmpty()) {
+                map.remove(event)
+            }
+        }
+    }
+
+    /**
+     * Unregisters multiple subscribers from all of their events.
+     *
+     * @param subscribers subscribers being unregistered.
+     */
+    fun unregisterAll(vararg subscribers: Subscriber) = subscribers.forEach { unregister(it) }
+
+    /**
+     * Reports an [Event] to all the active subscribers of that event.
+     *
+     * @param event event being reported.
+     * @see [SubscriberEventHandler.handleEvent]
+     */
+    fun report(event: Event) {
+        val interestedHandlers: MutableSet<SubscriberEventHandler> = map[event.javaClass] ?: error(NO_SUCH_EVENT)
+        interestedHandlers.forEach { it.handleEvent(event) }
     }
 
     /**
@@ -69,11 +99,22 @@ object Reporter {
     }
 
     /**
+     * Clears the whole [map].
+     * Subsequent calls to [report] will do nothing until [register] is called again.
+     */
+    fun clearEverything() = map.clear()
+
+    /**
+     * Checks whether or not the map is empty.
+     *
+     * @return true if it is indeed empty, false otherwise.
+     */
+    fun isEmpty() = map.isEmpty()
+
+    /**
      * @return whether or not a given method has the [Subscription] annotation.
      */
-    private fun Method.hasSubscriptionAnnotation(): Boolean {
-        return this.getAnnotation(Subscription::class.java) != null
-    }
+    private fun Method.hasSubscriptionAnnotation(): Boolean = this.getAnnotation(Subscription::class.java) != null
 
     /**
      * A method is considered to have invalid parameters if and only if its number of parameters is != 1.
@@ -85,33 +126,5 @@ object Reporter {
         if (parameterTypes?.size != 1) return false
         return true
     }
-
-    /**
-     * Unregisters a given [Subscriber] by removing from the [map] all [SubscriberEventHandler]s
-     * that are related to this subscriber's events.
-     *
-     * @param subscriber subscriber being removed.
-     */
-    fun unregister(@NotNull subscriber: Subscriber) {
-        for (handlerSet: MutableSet<SubscriberEventHandler> in map.values) {
-            handlerSet.removeAll { it.subscriber == subscriber }
-        }
-    }
-
-    /**
-     * Reports an [Event] to all the active subscribers of that event.
-     *
-     * @param event event being reported.
-     * @see [SubscriberEventHandler.handleEvent]
-     */
-    fun report(@NotNull event: Event) {
-        val interestedHandlers: MutableSet<SubscriberEventHandler> = map[event.javaClass] ?: error(NO_SUCH_EVENT)
-        interestedHandlers.forEach { it.handleEvent(event) }
-    }
-
-    /**
-     * Clears the whole [map].
-     */
-    fun clearAll() = map.clear()
 }
 

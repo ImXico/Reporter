@@ -5,5 +5,6 @@ package reporter
  *
  * @author Xico
  */
+
 interface Subscriber
 
