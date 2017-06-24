@@ -14,6 +14,6 @@ import java.lang.reflect.Method
 
 internal class SubscriberEventHandler(val subscriber: Subscriber, private val handlerMethod: Method) {
 
-    internal fun handleEvent(event: Event) = this.handlerMethod.invoke(subscriber, event)
+  internal fun handleEvent(event: Event) = this.handlerMethod.invoke(subscriber, event)
 }
 
