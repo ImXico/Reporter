@@ -28,15 +28,15 @@ Those methods should only have **one** parameter, and that parameter should be a
 ```kotlin
 class Bob : Subscriber {
 
-    @Subscription
-    fun greet(event: PersonOnlineEvent) = println("Bob says: Hi, ${event.name}!")
+  @Subscription
+  fun greet(event: PersonOnlineEvent) = println("Bob says: Hi, ${event.name}!")
 }
 ```
 ```kotlin
 class Joe : Subscriber {
-
-    @Subscription
-    fun greet(event: PersonOnlineEvent) = println("Joe says: Hey ${event.name}.")
+  
+  @Subscription
+  fun greet(event: PersonOnlineEvent) = println("Joe says: Hey ${event.name}.")
 }
 ```
 
@@ -44,13 +44,9 @@ class Joe : Subscriber {
 ```kotlin
 val bob: Bob = Bob()
 val joe: Joe = Joe()
-
 Reporter.registerAll(bob, joe)
-
 Reporter.report(PersonOnlineEvent(name = "Jon"))
 ```
-
-#### Output
 ```
 Bob says: Hi, Jon!
 Joe says: Hey Jon.
