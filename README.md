@@ -1,6 +1,6 @@
 # Reporter 🎤
 
-[![Build Status](https://travis-ci.org/ImXico/reporter.svg?branch=master)](https://travis-ci.org/ImXico/reporter)
+[![Build Status](https://travis-ci.org/ImXico/Reporter.svg?branch=master)](https://travis-ci.org/ImXico/Reporter)
 [![kotlin](https://img.shields.io/badge/kotlin-1.1.0-orange.svg)](https://kotlinlang.org/)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/ImXico/reporter/blob/master/LICENSE.md)
 
