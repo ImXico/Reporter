@@ -6,6 +6,8 @@
 
 Tiny and lightweight event handling system for Java/Kotlin. It's an annotation-based implementation of the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern) that takes away all the boilerplate that usually comes with it, making it super easy to use.
 
+⚠️ *Note that this is purely experimental, and thus not intended to be used in production.*
+
 ### Events
 Have all events implementing the `Event` interface.
 ```kotlin
